@@ -85,9 +85,7 @@ function movie() {
   axios
     .get(`http://www.omdbapi.com/?t=${value}&apikey=trilogy`)
     .then(function (response) {
-      // If the axios was successful...
-      // Then log the body from the site!
-      //console.log(response.data);
+
       console.log(` Title: ${response.data.Title}
   Released: ${response.data.Year}
   IMDP Rating: ${response.data.Ratings[0].Value}
