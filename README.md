@@ -5,4 +5,10 @@ In this assignment, I made LIRI. LIRI is like iPhone's SIRI. However, while SIRI
 
 ![ ](liriconcert.gif)
 
+<h3> Spotify-This_song</h3>
 
+![ ](lirispot.gif)
+
+<h3> Movie-This</h3>
+
+![ ](lirimovie.gif)
