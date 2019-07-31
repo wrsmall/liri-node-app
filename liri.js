@@ -27,12 +27,12 @@ switch (action) {
 
 function spotifyThis() {
   console.log("----------------------------------------------");
-  if (!value){
-  value="Ace of base"
+  if (!value) {
+    value = "Ace of base"
   };
   spotify.search({ type: 'track', query: value }, function (err, data) {
     if (err) {
-      value="Ace of base"
+      value = "Ace of base"
       spotifyThis();
     }
 
@@ -41,7 +41,16 @@ function spotifyThis() {
  Preview: ${data.tracks.items[0].preview_url} 
  Album: ${data.tracks.items[0].album.name} `);
     console.log("----------------------------------------------");
-
+    fs.appendFile('text.txt', ` 
+    -----------------------------------------
+    Artist: ${data.tracks.items[0].artists[0].name}
+    Song Name: ${data.tracks.items[0].name} 
+    Preview: ${data.tracks.items[0].preview_url} 
+    Album: ${data.tracks.items[0].album.name} 
+    -----------------------------------------`, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+      });
   });
 };
 function concert() {
@@ -58,6 +67,16 @@ function concert() {
 Location: ${response.data[0].venue.region}
 Date: ${response.data[0].datetime}`);
       console.log("----------------------------------------------");
+      fs.appendFile('text.txt', `
+      ----------------------------------------
+      Line-Up: ${response.data[0].lineup}
+      Venue: ${response.data[0].venue.name}
+      Location: ${response.data[0].venue.region}
+      Date: ${response.data[0].datetime}
+      -----------------------------------------`, function (err) {
+              if (err) throw err;
+              console.log('Saved!');
+            });
     })
     .catch(function () {
       axios
@@ -69,7 +88,17 @@ Venue: ${response.data[0].venue.name}
 Location: ${response.data[0].venue.region}
 Date: ${response.data[0].datetime}`);
           console.log("----------------------------------------------");
-        })
+          fs.appendFile('text.txt', `
+          --------------------------------------
+          Line-Up: ${response.data[0].lineup}
+          Venue: ${response.data[0].venue.name}
+          Location: ${response.data[0].venue.region}
+          Date: ${response.data[0].datetime}
+          --------------------------------------`, function (err) {
+                  if (err) throw err;
+                  console.log('Saved!');
+                });
+              });
     });
 };
 
@@ -90,6 +119,20 @@ function movie() {
   Plot: ${response.data.Plot}
   Actors: ${response.data.Actors}`);
       console.log("-----------------------------------------");
+      fs.appendFile('text.txt', `
+      --------------------------------------
+      Title: ${response.data.Title}
+      Released: ${response.data.Year}
+      IMDP Rating: ${response.data.Ratings[0].Value}
+      Rotten Tomatos Rating: ${response.data.Ratings[1].Value}
+      Country: ${response.data.Country}
+      Language: ${response.data.Language}
+      Plot: ${response.data.Plot}
+      Actors: ${response.data.Actors}
+      --------------------------------------`, function (err) {
+              if (err) throw err;
+              console.log('Saved!');
+            });
     })
 
     .catch(function () {
@@ -97,7 +140,7 @@ function movie() {
       axios
         .get(`http://www.omdbapi.com/?t=mr_nobody&apikey=trilogy`)
         .then(function (response) {
-        console.log(`Title: ${response.data.Title}
+          console.log(`Title: ${response.data.Title}
   Released: ${response.data.Year}
   IMDP Rating: ${response.data.Ratings[0].Value}
   Rotten Tomatos Rating: ${response.data.Ratings[1].Value}
@@ -110,10 +153,10 @@ function movie() {
     });
 };
 
-function doThis(){
-  fs.readFile('random.txt', "utf8", function(error, data){
+function doThis() {
+  fs.readFile('random.txt', "utf8", function (error, data) {
     text = data.split(',');
-    value= text.slice(1).join(" ")
+    value = text.slice(1).join(" ")
 
     spotify
     spotifyThis(value);
